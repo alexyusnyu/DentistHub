@@ -26,5 +26,5 @@ def validate_client_phone_number(phone_number):
 
 
 def validate_client_picture_file_size(picture_object):
-    if picture_object.size > 3145728:
-        raise validators.ValidationError("The maximum picture file size that can be uploaded should not exceed 3MB!")
+    if picture_object.size > 10485760:
+        raise validators.ValidationError("The maximum picture file size that can be uploaded should not exceed 10MB!")

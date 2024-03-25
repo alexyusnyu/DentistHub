@@ -50,7 +50,7 @@ class Reservation(models.Model):
 
     def save(self, *args, **kwargs):
         existing_reservation = Reservation.objects.filter(
-            denstistsoffice=self.dentistsoffice,
+            dentistsoffice=self.dentistsoffice,
             dentist=self.dentist,
             date=self.date,
             time=self.time,

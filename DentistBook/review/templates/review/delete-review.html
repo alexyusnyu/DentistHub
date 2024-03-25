@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    DentistHub Delete Review
+{% endblock %}
+
+{% block content %}
+    <div class="wall-picture-container">
+        <div class="main-container">
+        <h1>Delete Review</h1>
+        <p>Are you sure you want to delete your review for {{ review.dentistsoffice.name }}?</p>
+
+        <form method="post">
+            {% csrf_token %}
+            <div class="delete-form-buttons">
+                <button type="submit">Delete Review</button>
+                <button type="button"><a href="{% url 'client-details' %}" class="link-button">Cancel</a></button>
+            </div>
+        </form>
+    </div>
+        <img src="{% static 'images/website_photos/white-wall.jpg' %}" alt="white-wall" class="white-wall-picture">
+    </div>
+{% endblock %}

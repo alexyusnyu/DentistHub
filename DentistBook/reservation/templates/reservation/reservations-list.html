@@ -1,0 +1,174 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load custom_filters %}
+
+
+{% block title %}
+    DentistHub Reservation List Page
+{% endblock %}
+
+{% block content %}
+    <div class="wall-picture-container">
+        <div class="main-container">
+        <h1>Reservations List</h1>
+
+        {% if request.user|get_role == 'Client' %}
+            <a href="{% url 'client-details' %}" class="link-button">Back to Profile</a>
+        {% else %}
+            <a href="{% url 'dentistsoffice-details' slug=request.user.dentistsofficeprofile.slug %}" class="link-button">Back to Profile</a>
+        {% endif %}
+        <form method="GET" class="filter-form">
+            <div>
+                {% if request.user|get_role == 'Client' %}
+                <label for="dentistsoffice_filter">Filter by dentistsoffice:</label>
+                <input type="text" name="dentistsoffice_filter" id="dentistsoffice_filter" value="{{ request.GET.dentistsoffice_filter }}">
+            {% else %}
+                <label for="user_filter">Filter by User:</label>
+                <input type="text" name="user_filter" id="user_filter" value="{{ request.GET.user_filter }}">
+            {% endif %}
+            </div>
+            <div>
+                <label for="dentist_filter">Filter by dentist:</label>
+                <input type="text" name="dentist_filter" id="dentist_filter" class="form-control" value="{{ request.GET.dentist_filter }}">
+            </div>
+            <div>
+                <label for="date_filter">Filter by Date:</label>
+                <input type="date" name="date_filter" id="date_filter" value="{{ request.GET.date_filter }}">
+            </div>
+            <button type="submit">Apply Filters</button>
+        </form>
+        {% if request.user|get_role == 'Dentistsoffice' %}
+            <button><a href="{% url 'download-reservations' %}"><i class="far fa-file-excel"></i> Export All </a></button>
+        {% endif %}
+        <h2>Upcoming Reservations: {{ upcoming_reservations.paginator.count }}</h2>
+        <table class="reservation-list-table">
+            <thead>
+                {% if upcoming_reservations %}
+                    <tr>
+                        <th>Reservation #</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Client:</th>
+                        <th>Email:</th>
+                        <th>Dentistsoffice</th>
+                        <th>dentist</th>
+                        <th>Service</th>
+                        <th>Action</th>
+                    </tr>
+                {% endif %}
+            </thead>
+            <tbody>
+                {% for reservation in upcoming_reservations %}
+                    <tr>
+                        <td>{{ reservation.id }}</td>
+                        <td>{{ reservation.date }}</td>
+                        <td>{{ reservation.time }}</td>
+                        <td>{{ reservation.user }}</td>
+                        <td>{{ reservation.user.email }}</td>
+                        <td><a href="{% url 'dentistsoffice-details' slug=reservation.dentistsoffice.slug %}">{{ reservation.dentistsoffice }}</a></td>
+                        <td>{{ reservation.dentist }}</td>
+                        <td>{{ reservation.service }}</td>
+                        <td>
+                            <form action="{% url 'delete-reservation' reservation.id %}" method="POST" id="delete-form-{{ reservation.id }}">
+                                {% csrf_token %}
+                                <input type="hidden" name="reservation_id" value="{{ reservation.id }}">
+                                <button class="table-button" type="button" onclick="showDeleteConfirmation({{ reservation.id }})">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% empty %}
+            <tr>
+                <td colspan="6">No upcoming reservations</td>
+            </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        {% if upcoming_reservations %}
+            <div class="pagination">
+                <span class="step-links">
+                    {% if upcoming_reservations.has_previous %}
+                        <a href="?page_upcoming=1">&laquo; first</a>
+                        <a href="?page_upcoming={{ upcoming_reservations.previous_page_number }}">previous</a>
+                    {% endif %}
+
+                    <span class="current">
+                        Page {{ upcoming_reservations.number }} of {{ upcoming_reservations.paginator.num_pages }}
+                    </span>
+
+                    {% if upcoming_reservations.has_next %}
+                        <a href="?page_upcoming={{ upcoming_reservations.next_page_number }}">next</a>
+                        <a href="?page_upcoming={{ upcoming_reservations.paginator.num_pages }}">last &raquo;</a>
+                    {% endif %}
+                </span>
+            </div>
+        {% endif %}
+        <h2>Past Reservations: {{ past_reservations.paginator.count }}</h2>
+        <table class="reservation-list-table">
+            <thead>
+                {% if past_reservations %}
+                    <tr>
+                        <th>Reservation #</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Client:</th>
+                        <th>Email:</th>
+                        <th>dentistsoffice</th>
+                        <th>dentist</th>
+                        <th>Service</th>
+                    </tr>
+                {% endif %}
+            </thead>
+            <tbody>
+                {% for reservation in past_reservations %}
+                    <tr>
+                        <td>{{ reservation.id }}</td>
+                        <td>{{ reservation.date }}</td>
+                        <td>{{ reservation.time }}</td>
+                        <td>{{ reservation.user }}</td>
+                        <td>{{ reservation.user.email }}</td>
+                        <td><a href="{% url 'dentistsoffice-details' slug=reservation.dentistsoffice.slug %}">{{ reservation.dentistsoffice }}</a></td>
+                        <td>{{ reservation.dentist }}</td>
+                        <td>{{ reservation.service }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="5">No past reservations</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        {% if past_reservations %}
+        <div class="pagination">
+            <span class="step-links">
+                {% if past_reservations.has_previous %}
+                    <a href="?page_past=1">&laquo; first</a>
+                    <a href="?page_past={{ past_reservations.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ past_reservations.number }} of {{ past_reservations.paginator.num_pages }}
+                </span>
+
+                {% if past_reservations.has_next %}
+                    <a href="?page_past={{ past_reservations.next_page_number }}">next</a>
+                    <a href="?page_past={{ past_reservations.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+        {% endif %}
+    </div>
+        <img src="{% static 'images/website_photos/white-wall.jpg' %}" alt="white-wall" class="white-wall-picture">
+    </div>
+
+<script>
+    function showDeleteConfirmation(reservationId) {
+        const confirmed = confirm("Are you sure you want to delete this reservation?");
+        if (confirmed) {
+            const form = document.getElementById("delete-form-" + reservationId);
+            form.submit();
+        }
+    }
+</script>
+{% endblock %}

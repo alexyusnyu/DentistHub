@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    DentistHub Service Details Page
+{% endblock %}
+
+{% block content %}
+    <div class="wall-picture-container">
+        <div class="main-container">
+
+            <h1>Service Details Page</h1>
+            <a href="{% url 'dentistsoffice-details' slug=request.user.dentistsofficeprofile.slug %}" class="link-button">Back to Profile</a>
+            <ul>
+                <li>Service: {{ object.service_name }}</li>
+                <li>Price: {{ object.price }}</li>
+            </ul>
+
+            {% if object.dentistsoffice.pk == request.user.pk %}
+                <button><a href="{% url 'edit-service' slug=object.dentistsoffice.slug pk=object.pk %}" class="link-button">Edit Service</a></button>
+                <button><a href="{% url 'delete-service' slug=object.dentistsoffice.slug pk=object.pk %}" class="link-button">Delete Service</a></button>
+            {% endif %}
+
+        </div>
+        <img src="{% static 'images/website_photos/white-wall.jpg' %}" alt="white-wall" class="white-wall-picture">
+    </div>
+{% endblock %}

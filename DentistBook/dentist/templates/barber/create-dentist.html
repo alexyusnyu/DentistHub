@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    DentistHub Create Dentist Page
+{% endblock %}
+
+{% block content %}
+    <div class="wall-picture-container">
+        <div class="main-form-container">
+            <div class="form-container">
+                <h1>Add Dentist</h1>
+                <form action="{% url 'create-dentist' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div class="form-buttons">
+                        <button>Add Dentist</button>
+                        <button type="button"><a href="{% url 'dentistsoffice-details' slug=dentistsoffice.slug %}">Cancel</a></button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+        <img src="{% static 'images/website_photos/white-wall.jpg' %}" alt="white-wall" class="white-wall-picture">
+    </div>
+{% endblock %}

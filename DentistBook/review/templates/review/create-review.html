@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Create Review for {{ dentistsoffice.name }}
+{% endblock %}
+
+{% block content %}
+    <div class="wall-picture-container">
+        <div class="main-form-container">
+        <div class="form-container">
+            <h1>Create Review for {{ dentistsoffice.name }}</h1>
+            {% if user_is_client and has_reserved and not has_reviewed %}
+                <form action="{% url 'create-review' slug=dentistsoffice.slug %}" method="post">
+                    {% csrf_token %}
+                    {{ form.errors }}
+                    <div class="star-rating">
+                        {% for i in "54321" %}
+                            <input type="radio" id="star{{ i }}" name="rating" value="{{ i }}" required>
+                            <label for="star{{ i }}"></label>
+                        {% endfor %}
+                    </div>
+                    <div>
+                        <label for="{{ form.comment.id_for_label }}">Comment:</label>
+                        {{ form.comment }}
+                    </div>
+                    <div class="form-buttons">
+                        <button>Submit Review</button>
+                        <button type="button"><a href="{% url 'dentistsoffice-details' slug=dentistsoffice.slug %}" class="link-button">Cancel</a></button>
+                    </div>
+                </form>
+            {% else %}
+                {% if not user_is_client %}
+                    <p>You must be a client to leave a review.</p>
+                    <button type="button" class="cancel-button"><a href="{% url 'dentistsoffice-details' slug=dentistsoffice.slug %}" class="link-button">Back to dentistsoffice</a></button>
+                {% endif %}
+
+                {% if not has_reserved %}
+                    <p>You must have at least one reservation with this office to leave a review.</p>
+                    <button type="button" class="cancel-button"><a href="{% url 'dentistsoffice-details' slug=dentistsoffice.slug %}" class="link-button">Back to dentistsoffice</a></button>
+                {% endif %}
+
+                {% if has_reviewed %}
+                    <p>You have already reviewed this office.</p>
+                    <button type="button" class="cancel-button"><a href="{% url 'dentistsoffice-details' slug=dentistsoffice.slug %}" class="link-button">Back to dentistsoffice</a></button>
+                {% endif %}
+            {% endif %}
+
+        </div>
+    </div>
+        <img src="{% static 'images/website_photos/white-wall.jpg' %}" alt="white-wall" class="white-wall-picture">
+    </div>
+{% endblock %}

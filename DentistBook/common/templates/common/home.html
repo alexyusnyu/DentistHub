@@ -22,7 +22,7 @@
             {% endif %}
         {% endif %}
         {% if not request.user.is_authenticated or request.user|get_role == 'Client' %}
-            <a href="{% url 'dentistsoffice-list' %}" class="check-out">Check out our dentistsoffices</a>
+            <a href="{% url 'dentistsoffice-list' %}" class="check-out">Check out our Offices</a>
         {% endif %}
         <img src="{% static 'images/website_photos/nathon-oski-EW_rqoSdDes-unsplash.jpg' %}" alt="cover" class="home-cover-picture">
 
@@ -32,7 +32,7 @@
     <div class="intro-container">
         <h3>Looking for a dental services? We've Got You Covered!</h3>
         <div>
-            <span>Choose from <b>{{ dentistsoffices_count }}</b> dentistsoffices</span>
+            <span>Choose from <b>{{ dentistsoffices_count }}</b> Offices</span>
             <span>Book your appointment online in just few clicks</span>
             <span><b>{{ reservations_count }}</b> booked appointments with us</span>
         </div>

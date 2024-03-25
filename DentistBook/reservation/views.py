@@ -90,7 +90,7 @@ def select_date(request):
         if form.is_valid():
             reservation_date = form.cleaned_data['date']
             weekday_index = reservation_date.weekday()
-            working_hours = dentistsoffice.dentistsofficepworkinghours_set.filter(day=weekday_index).first()
+            working_hours = dentistsoffice.dentistsofficeworkinghours_set.filter(day=weekday_index).first()
             start_time = working_hours.start_time
             end_time = working_hours.end_time
             if start_time is None and end_time is None:

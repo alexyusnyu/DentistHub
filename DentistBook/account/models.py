@@ -6,7 +6,7 @@ class AppUser(AbstractUser):
     MAX_LENGTH_ROLE = 15
     ROLES = (
         ('Client', 'Client'),
-        ('Dentistsoffice', 'Dentistsoffice'),
+        ('Dentistsoffice', 'Dentist'),
     )
 
     role = models.CharField(

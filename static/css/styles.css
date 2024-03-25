@@ -24,6 +24,24 @@ body, h1, h2, h3, h4, h5, h6, p, figure, blockquote, dl, dd {
 	margin: 0;
 }
 
+/* Apply the black shadow bubble effect to specified elements */
+h1, h2, h3, h4, h5, h6, b, li, p {
+    color: white; /* Set text color to white */
+    text-shadow: 
+        -10px -10px 30px rgba(0, 0, 0, 0.9), 
+        10px -10px 30px rgba(0, 0, 0, 0.9), 
+        -10px 10px 30px rgba(0, 0, 0, 0.9), 
+        10px 10px 30px rgba(0, 0, 0, 0.9);
+
+}
+
+body {
+    color: white;
+    background-image: url('../images/website_photos/background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
 ul[role='list'], ol[role='list'] {
 	list-style: none;
 	padding: 0;
@@ -38,7 +56,7 @@ a {
 /* -----Styling----- */
 
 body {
-	font-family: Poppins, sans-serif;
+	font-family: 'Helvetica Neue', Arial, sans-serif;
 	line-height: 1.5;
     height: 100%
 }
@@ -46,6 +64,7 @@ main {
     min-height: 95vh;
 }
 main h1 {
+    font-family: Rye, sans-serif;
     font-size: 3rem;
 }
 
@@ -199,7 +218,9 @@ button {
     border: none;
     cursor: pointer;
     transition: transform 0.3s, color 0.3s, box-shadow 0.3s;
+    box-shadow: 0 0 0 2px white; /* White bubble border */
 }
+
 button:hover {
     color: lightskyblue;
     transform: scale(1.1);
@@ -229,13 +250,13 @@ button:hover {
     width: 100%;
     border: 3px solid black;
     border-radius: 6px;
-    box-shadow: 5px 10px 8px #888888;
+    box-shadow: 5px 10px 8px #000000;
 }
 .oops-picture{
     height: 80vh;
     border: 3px solid black;
     border-radius: 6px;
-    box-shadow: 5px 10px 8px #888888;
+    box-shadow: 5px 10px 8px #000000;
 }
 .main-reservation-success-container {
     margin: 3rem;
@@ -249,7 +270,7 @@ button:hover {
     align-items: center;
 }
 .reservation-form-container {
-    background: white;
+    background: rgb(0, 0, 0);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -259,7 +280,7 @@ button:hover {
     border: 2px solid black;
     border-radius: 6px;
     padding: 2rem;
-    box-shadow: 5px 10px 8px #888888;
+    box-shadow: 5px 10px 8px #000000;
 }
 .reservation-form-container h1 {
     text-align: center;
@@ -308,14 +329,14 @@ button:hover {
 }
 
 .form-container {
-    background: white;
+    background: rgb(0, 0, 0);
     display: flex;
     flex-direction: column;
     width: 580px;
     border: 2px solid black;
     border-radius: 6px;
     padding: 2rem;
-    box-shadow: 5px 10px 8px #888888;
+    box-shadow: 5px 10px 8px #000000;
 }
 .form-container h1 {
     font-size: 2.5rem;
@@ -368,7 +389,7 @@ div #id_role {
 }
 
 input::file-selector-button {
-    font-family: Poppins, sans-serif;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
     font-weight: bold;
     color: white;
     background: black;
@@ -499,7 +520,7 @@ input::file-selector-button {
 }
 
 .book-now-button {
-    font-family: Rye, sans-serif;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
     font-weight: 500;
     font-size: 2rem;
     background: #cc3c3b;
@@ -528,35 +549,35 @@ input::file-selector-button {
     height: 300px;
     border: 3px solid black;
     border-radius: 6px;
-    box-shadow: 5px 10px 8px #888888;
+    box-shadow: 5px 10px 8px #000000;
 }
 
 .dentistsoffice-photo-thumbnail {
     height: 230px;
     border: 4px solid black;
     border-radius: 6px;
-    box-shadow: 5px 10px 8px #888888;
+    box-shadow: 5px 10px 8px #000000;
 
 }
 .dentistsoffice-photo-full{
     height: 700px;
     border: 4px solid black;
     border-radius: 6px;
-    box-shadow: 5px 10px 8px #888888;
+    box-shadow: 5px 10px 8px #000000;
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: Rye, sans-serif;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
     font-weight: 500;
     padding: 0.5rem 0;
 }
 
 
 .datepicker-dropdown {
-    background: white;
+    background: rgb(0, 0, 0);
     border: 3px solid black;
     border-radius: 6px;
-    box-shadow: 5px 10px 8px #888888;
+    box-shadow: 5px 10px 8px #000000;
     position: absolute;
     top: 0;
     left: 0;
@@ -569,10 +590,10 @@ h1, h2, h3, h4, h5, h6 {
     justify-content: space-between;
     width: 60%;
     padding: 3rem;
-    background: white;
+    background: rgb(0, 0, 0);
     border: 3px solid black;
     border-radius: 6px;
-    box-shadow: 5px 10px 8px #888888;
+    box-shadow: 5px 10px 8px #000000;
 }
 
 
@@ -587,7 +608,7 @@ h1, h2, h3, h4, h5, h6 {
     border: 3px solid black;
     border-radius: 6px;
     margin-bottom: 1rem;
-    box-shadow: 5px 10px 8px #888888;
+    box-shadow: 5px 10px 8px #000000;
 }
 
 .reservation-list-table thead th{
@@ -595,10 +616,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .reservation-list-table tr:nth-child(even) {
-    background-color: #f2f2f2;
+    background-color: #000000;
 }
 .reservation-list-table tr:nth-child(odd) {
-    background-color: white;
+    background-color: rgb(0, 0, 0);
 }
 .table-button {
     margin: 0;
@@ -636,8 +657,8 @@ h1, h2, h3, h4, h5, h6 {
     margin: 1rem;
     border: 2px solid black;
     border-radius: 6px;
-    background: white;
-    box-shadow: 5px 10px 8px #888888;
+    background: rgb(0, 0, 0);
+    box-shadow: 5px 10px 8px #000000;
 }
 
 .corner-left {
@@ -779,8 +800,8 @@ h1, h2, h3, h4, h5, h6 {
     margin: 1rem;
     border: 2px solid black;
     border-radius: 6px;
-    background: white;
-    box-shadow: 5px 10px 8px #888888;
+    background: rgb(0, 0, 0);
+    box-shadow: 5px 10px 8px #000000;
 }
 
 .fa-star, .fa-star-half-alt {

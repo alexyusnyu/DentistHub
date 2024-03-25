@@ -9,7 +9,7 @@ DentistHub Login Page
     <div class="wall-picture-container">
         <div class="main-form-container">
             <div class="form-container">
-                <h1>Login User</h1>
+                <h1>Login</h1>
                 <form action="{% url 'login-page' %}" method="post">
                     {% csrf_token %}
                     {{ form.as_p }}

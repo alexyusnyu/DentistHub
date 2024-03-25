@@ -36,7 +36,7 @@ class DentistsofficeProfileDetailsView(views.DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         dentistsoffice_rating = Review.objects.filter(dentistsoffice=self.object.pk).aggregate(Avg('rating'))['rating__avg']
-        dentistsoffice_reviews_count = Review.objects.filter(dentitstsofficep=self.object.pk).count()
+        dentistsoffice_reviews_count = Review.objects.filter(dentistsoffice=self.object.pk).count()
         context['dentistsoffice_rating'] = dentistsoffice_rating
         context['dentistsoffice_reviews_count'] = dentistsoffice_reviews_count
         return context

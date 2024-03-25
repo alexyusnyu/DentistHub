@@ -1,0 +1,232 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load dentistsoffice_custom_filters %}
+{% load custom_filters %}
+
+{% block title %}
+DentistHub Office Details Page
+{% endblock %}
+
+{% block content %}
+
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.css" />
+
+<!-- Leaflet JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.js"></script>
+
+    <div class="wall-dentistsoffice-picture-container">
+        <div class="main-container">
+        <div class="dentistsoffice-header">
+            <h1>Office Details</h1>
+
+            {% if object.pk == request.user.pk %}
+                <button class="book-now-button"><a href="{% url 'step1-select-dentistsoffice' slug=object.slug %}">BOOK NOW</a></button>
+            {% endif %}
+            {% if request.user.is_authenticated and request.user|get_role == 'Client' %}
+                <button class="book-now-button"><a href="{% url 'step1-select-dentistsoffice' slug=object.slug %}">BOOK NOW</a></button>
+                <h2><a href="{% url 'create-review' slug=object.slug %}">Review dentistsoffice</a></h2>
+            {% endif %}
+
+            <div class="dentistsoffice-details-buttons">
+                {% if object.pk == request.user.pk %}
+                    <button><a href="{% url 'edit-dentistsoffice' slug=object.slug %}" class="link-button">Edit Profile</a></button>
+                    <button><a href="{% url 'delete-account' %}" class="link-button">Delete Profile</a></button>
+                    <button><a href="{% url 'change-password' %}" class="link-button">Change Password</a></button>
+                    <button><a href="{% url 'reservation-list' pk=object.pk %}" class="link-button">Manage Reservations</a></button>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="dentistsoffice-details-wrapper">
+            <div class="dentistsoffice-details">
+                    <h2>{{ object.name }}</h2>
+                    {% if object.dentistsoffice_picture %}
+                        <img src="{{ object.dentistsoffice_picture.url }}" class="profile-picture" alt="dentistsoffice-profile_picture">
+                    {% else %}
+                        <img src="{% static 'images/dentistsoffice-default-profile-picture.jpg' %}" alt="dentist_default_profile_picture" class="profile-picture">
+                    {% endif %}
+                <ul>
+                    <li><b>Address:</b> {{ object.address }}</li>
+                    <li><b>City:</b> {{ object.city }}</li>
+                    {% if dentistsoffice_rating %}
+                        <p><b>Rating:</b>
+                            {% if dentistsoffice_rating >= 1 and dentistsoffice_rating < 1.5 %}
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                            {% elif dentistsoffice_rating >= 1.5 and dentistsoffice_rating < 2 %}
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                            {% elif dentistsoffice_rating >= 2 and dentistsoffice_rating < 2.5 %}
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                            {% elif dentistsoffice_rating >= 2.5 and dentistsoffice_rating < 3 %}
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                            {% elif dentistsoffice_rating >= 3 and dentistsoffice_rating < 3.5 %}
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                            {% elif dentistsoffice_rating >= 3.5 and dentistsoffice_rating < 4 %}
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <i class="far fa-star"></i>
+                            {% elif dentistsoffice_rating >= 4 and dentistsoffice_rating < 4.5 %}
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            {% elif dentistsoffice_rating >= 4.5 and dentistsoffice_rating < 5 %}
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            {% elif dentistsoffice_rating == 5 %}
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            {% endif %}
+                            <a href="{% url 'dentistsoffice-reviews-list' slug=object.slug %}">{{ dentistsoffice_rating|floatformat:1 }} ({{ dentistsoffice_reviews_count }}
+                            {% if dentistsoffice_reviews_count == 1 %}
+                                review)
+                            {% else %}
+                                reviews)
+                            {% endif %}</a>
+                        </p>
+                    {% else %}
+                        <p>No reviews yet.</p>
+                    {% endif %}
+                </ul>
+
+            </div>
+
+            <div class="working-hours">
+                <h2>Working Hours</h2>
+                <ul>
+                    {% for weekday in object.dentistsofficeworkinghours_set.all|dictsort:'day' %}
+                        {% if object.pk == request.user.pk %}
+                            <a href="{% url 'working-hours-details' slug=object.slug pk=weekday.pk %}">
+                                {% if weekday.start_time and weekday.end_time %}
+                                    <li><b>{{ weekday.day|weekday_name }}:</b> {{ weekday.start_time }} - {{ weekday.end_time }}</li>
+                                {% else %}
+                                    <li><b>{{ weekday.day|weekday_name }}:</b> <img src="{% static 'images/closed_sign.jpg'%}" alt="closed" class="closed-sign"></li>
+                                {% endif %}
+                            </a>
+                        {% else %}
+                            {% if weekday.start_time and weekday.end_time %}
+                                <li><b>{{ weekday.day|weekday_name }}:</b> {{ weekday.start_time }} - {{ weekday.end_time }}</li>
+                            {% else %}
+                                <li><b>{{ weekday.day|weekday_name }}:</b> <img src="{% static 'images/closed_sign.jpg'%}" alt="closed" class="closed-sign"></li>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+
+            {% if object.geolocation_latitude and object.geolocation_longitude %}
+
+            <div class="map-container-dentistsoffice">
+                <h3>Find us on the map</h3>
+                <div id="map"></div>
+            </div>
+
+
+            {% endif %}
+        </div>
+
+        <div class="dentistsoffice-details-wrapper2">
+            <div class="about">
+                <h2>About</h2>
+                <p>" {{ object.about }} "</p>
+            </div>
+            <div class="services">
+                <h2>Our Services</h2>
+                <ul>
+                    {% for service in object.dentistsofficeservice_set.all %}
+                        {% if object.pk == request.user.pk %}
+                            <li><a href="{% url 'service-details' slug=object.slug pk=service.pk %}">{{ service.service_name }} - {{ service.price }} lv.</a></li>
+                        {% else %}
+                            <li>{{ service.service_name }} - {{ service.price }} lv.</li>
+                        {% endif %}
+                    {% empty %}
+                        <li>This office has no services yet</li>
+                    {% endfor %}
+                </ul>
+                {% if object.pk == request.user.pk %}
+                    <button><a href="{% url 'create-service' slug=object.slug %}" class="link-button">Add New Service</a></button>
+                {% endif %}
+            </div>
+
+            <div class="dentists-list">
+                <h2>Our Dentists:</h2>
+                <ul>
+                    {% for dentist in object.dentist_set.all %}
+                        <li><a href="{% url 'dentist-details' pk=dentist.pk %}">{{ dentist.name }}</a></li>
+                    {% empty %}
+                        <li>This office has no dentists</li>
+                    {% endfor %}
+                </ul>
+                {% if object.pk == request.user.pk %}
+                    <button><a href="{% url 'create-dentist' %}" class="link-button">Add New Dentist</a></button>
+                {% endif %}
+            </div>
+
+        </div>
+        {% if object.pk == request.user.pk and object.dentistsofficepicture_set.count < 4 %}
+            <button><a href="{% url 'create-picture' slug=object.slug %}" class="link-button">Add New Photo</a></button>
+        {% endif %}
+        <div class="dentistsoffice-pictures">
+
+            {% for picture in object.dentistsofficepicture_set.all %}
+                <a href="{% url 'picture-details' slug=object.slug pk=picture.pk %}"><img src="{{ picture.image.url }}" alt="picture" class="dentistsoffice-photo-thumbnail"></a>
+            {% empty %}
+                <h3>No photo uploaded</h3>
+            {% endfor %}
+
+        </div>
+
+    </div>
+        <img src="{% static 'images/website_photos/white-wall.jpg' %}" alt="white-wall" class="white-wall-picture">
+    </div>
+
+    <script>
+        let map = L.map('map', {scrollWheelZoom: false}).setView([{{ object.geolocation_latitude }}, {{ object.geolocation_longitude }}], 17);
+
+        customIcon = L.icon({
+            iconUrl: "{% static 'images/point_dentistsoffice_logo.png' %}",
+            iconSize: [64, 64], // Set the size of the icon image
+            iconAnchor: [16, 32], // Set the position of the icon's anchor point
+            popupAnchor: [16, -16], // Set the position of the popup relative to the icon
+        });
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+        maxZoom: 50,
+        }).addTo(map);
+        let marker = L.marker([{{ object.geolocation_latitude }}, {{ object.geolocation_longitude }}], { icon: customIcon }).addTo(map);
+        marker.bindPopup("<b>{{ object.name }}</b><br>{{ object.address }}");
+        marker.openPopup();
+    </script>
+
+
+{% endblock %}

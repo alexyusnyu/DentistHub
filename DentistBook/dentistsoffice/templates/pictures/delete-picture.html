@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    DentistHub Delete Photo Page
+{% endblock %}
+
+{% block content %}
+    <div class="wall-picture-container">
+        <div class="main-container">
+            <h1>Delete Photo</h1>
+            <img src="{{ object.image.url }}" alt="picture" class="dentistsoffice-photo-thumbnail">
+            <h2>Are you sure you want to delete this photo?</h2>
+            <form method="post">
+                {% csrf_token %}
+                <div class="delete-form-buttons">
+                    <button>Delete</button>
+                    <button type="button"><a href="{% url 'picture-details' slug=object.dentistsoffice.slug pk=object.pk %}">Cancel</a></button>
+                </div>
+            </form>
+        </div>
+        <img src="{% static 'images/website_photos/white-wall.jpg' %}" alt="white-wall" class="white-wall-picture">
+    </div>
+{% endblock %}

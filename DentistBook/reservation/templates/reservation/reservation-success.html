@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load custom_filters %}
+
+{% block title %}
+    DentistHub Confirm Reservation Page
+{% endblock %}
+
+
+{% block content %}
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.css" />
+
+<!-- Leaflet JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.js"></script>
+
+    <div class="wall-picture-container">
+        <div class="main-reservation-success-container">
+
+            <a href="{% url 'home-page' %}" class="link-button">Back to Home</a>
+            <h1>Congratulations!
+                <img src="{% static 'images/reserved-stamp-red-on-white.jpg'%}" alt="reserved" class="reserved-stamp">
+            </h1>
+
+            <h2>You have successfully booked your appointment at {{ dentistsoffice.name }}</h2>
+            <div class="reservation-container">
+                <div class="reservation-details">
+                    <h3>Reservation Details</h3>
+                    <p><b>Reservation number: #{{ reservation.id }}</b></p>
+                    <p><b>Username:</b> {{ request.user }}</p>
+                    <p><b>Email:</b> {{ request.user.email }}</p>
+                    {% if request.user|get_role == 'Client'%}
+                        <p><b>Name:</b> {{ request.user.clientprofile.first_name }} {{ request.user.clientprofile.last_name }}</p>
+                    {% else %}
+                        <p><b>Name:</b> {{ request.user.dentistsofficeprofile.name }}</p>
+                    {% endif %}
+                    <p><b>dentistsoffice:</b> {{ dentistsoffice.name }}</p>
+                    <p><b>Service:</b> {{ service }}</p>
+                    <p><b>Dentist:</b> {{ dentist }}</p>
+                    <p><b>Date:</b> {{ reservation_date }}</p>
+                    <p><b>Time:</b> {{ reservation_time }}</p>
+                </div>
+
+                <div class="map-container">
+                    {% if dentistsoffice.geolocation_longitude and dentistsoffice.geolocation_latitude %}
+                        <h3>Find us on the map</h3>
+                        <div id="map">
+                        </div>
+                        <script>
+                            let map = L.map('map', {scrollWheelZoom: false}).setView([{{ dentistsoffice.geolocation_latitude }}, {{ dentistsoffice.geolocation_longitude }}], 17);
+
+                            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+                            maxZoom: 50,
+                            }).addTo(map);
+                            let marker = L.marker([{{ dentistsoffice.geolocation_latitude }}, {{ dentistsoffice.geolocation_longitude }}]).addTo(map);
+                            marker.bindPopup("<b>{{ dentistsoffice.name }}</b><br>{{ dentistsoffice.address }}");
+                            marker.openPopup();
+                        </script>
+                    {% else %}
+                        <h3>Address: {{ dentistsoffice.address }}</h3>
+                        <h3>City: {{ dentistsoffice.city }}</h3>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <img src="{% static 'images/website_photos/white-wall.jpg' %}" alt="white-wall" class="white-wall-picture">
+    </div>
+
+{% endblock %}

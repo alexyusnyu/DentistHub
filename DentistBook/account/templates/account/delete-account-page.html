@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    DentistHub Delete Account Page
+{% endblock %}
+
+{% block content %}
+    <div class="wall-picture-container">
+        <div class="main-container">
+            <h1>{{ request.user }}</h1>
+            <h2>Are you sure you want to delete your profile?</h2>
+            <form method="post">
+                {% csrf_token %}
+                <div class="delete-form-buttons">
+                    <button>Delete</button>
+                    <button type="button"><a href="javascript:history.go(-1);">Cancel</a></button>
+                </div>
+            </form>
+        </div>
+        <img src="{% static 'images/website_photos/white-wall.jpg' %}" alt="white-wall" class="white-wall-picture">
+    </div>
+{% endblock %}

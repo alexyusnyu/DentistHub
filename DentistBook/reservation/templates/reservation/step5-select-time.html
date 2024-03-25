@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    DEntistHub Reservation Select Date Page
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="wall-picture-container">
+        <div class="main-form-container">
+            <div class="reservation-form-container">
+                <h1>Step 5: Select Time</h1>
+                <div class="reservation-form-wrapper">
+                    <div class="reservation-left-side">
+                        <img src="{% static 'images/dentistsoffice-chair.jpg' %}" alt="chair">
+                    </div>
+                    <div class="reservation-right-side">
+                        <div>
+                            <p><b>Client username:</b> {{ user.username }}</p>
+                            <p><b>Office:</b> {{ dentistsoffice.name }}</p>
+                            <p><b>Service:</b> {{ service }}</p>
+                            <p><b>Dentist:</b> {{ dentist }}</p>
+                            <p><b>Date:</b> {{ reservation_date }}</p>
+                        </div>
+
+                        <form method="post">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <div class="reservation-form-buttons">
+                                <button type="button"><a href="{% url 'step4-select-date' %}" class="link-button">< Back</a></button>
+                                <button type="submit">Next ></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <img src="{% static 'images/website_photos/white-wall.jpg' %}" alt="white-wall" class="white-wall-picture">
+    </div>
+
+{% endblock %}

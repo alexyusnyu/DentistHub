@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+DentistHub Register Page
+{% endblock %}
+
+{% block content %}
+
+    <div class="wall-picture-container">
+        <div class="main-form-container">
+        <div class="form-container">
+            <h1>Register New User</h1>
+            <form action="{% url 'register-page' %}" method="post">
+                {% csrf_token %}
+                <p>
+                    <label for="role"></label>
+                    {{ form.role }}
+                </p>
+                <p>
+                    <label for="username">Username:</label>
+                    {{ form.username}}
+                </p>
+                <p>
+                    <label for="email">Email</label>
+                    {{ form.email }}
+                </p>
+                <p>
+                    <label for="password1">Password</label>
+                    {{ form.password1 }}
+                </p>
+                <p>
+                    <label for="password2">Repeat Password</label>
+                    {{ form.password2 }}
+                </p>
+
+                <div class="form-buttons">
+                    <div>
+                        <button>Register</button>
+                        or
+                        <a href="{% url 'login-page' %}">Login</a>
+                    </div>
+
+                </div>
+
+                <div class="register-errors">
+                    {{ form.role.errors }}
+                    {{ form.username.errors }}
+                    {{ form.email.errors }}
+                    {{ form.password1.errors }}
+                    {{ form.password2.errors }}
+                </div>
+
+            </form>
+        </div>
+    </div>
+        <img src="{% static 'images/website_photos/white-wall.jpg' %}" alt="white-wall" class="white-wall-picture">
+    </div>
+{% endblock %}

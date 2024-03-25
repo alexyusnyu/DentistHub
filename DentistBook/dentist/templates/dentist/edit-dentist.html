@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    DentistHub Edit Dentist Page
+{% endblock %}
+
+{% block content %}
+    <div class="wall-picture-container">
+        <div class="main-form-container">
+            <div class="form-container">
+                <h1>Edit Dentist</h1>
+                <form action="{% url 'edit-dentist' pk=object.pk %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div class="form-buttons">
+                        <button>Edit Dentist</button>
+                        <button type="button"><a href="{% url 'dentist-details' pk=object.pk %}">Cancel</a></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <img src="{% static 'images/website_photos/white-wall.jpg' %}" alt="white-wall" class="white-wall-picture">
+    </div>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load dentistsoffice_custom_filters %}
+
+{% block title %}
+    DentistHub Working Hours Details Page
+{% endblock %}
+
+{% block content %}
+    <div class="wall-picture-container">
+        <div class="main-container">
+            <h1>Working Hours Details</h1>
+            <a href="{% url 'dentistsoffice-details' slug=request.user.dentistsofficeprofile.slug %}" class="link-button">Back to Profile</a>
+            <ul>
+                <li><b>Weekday:</b> {{ object.day|weekday_name }}</li>
+                <li><b>Start Time:</b> {{ object.start_time }}</li>
+                <li><b>End Time:</b> {{ object.end_time }}</li>
+            </ul>
+
+            {% if object.dentistsoffice.pk == request.user.pk %}
+                <button><a href="{% url 'edit-working-hours' slug=object.dentistsoffice.slug pk=object.pk %}" class="link-button">Edit Hours</a></button>
+            {% endif %}
+        </div>
+        <img src="{% static 'images/website_photos/white-wall.jpg' %}" alt="white-wall" class="white-wall-picture">
+    </div>
+{% endblock %}

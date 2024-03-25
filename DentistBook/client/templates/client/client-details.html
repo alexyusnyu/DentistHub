@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+DentistHub Client Details Page
+{% endblock %}
+
+{% block content %}
+    <div class="wall-picture-container">
+        <div class="main-container">
+        <h1>Client Profile Details</h1>
+        <h2>{{ request.user }}</h2>
+
+        {% if object.profile_picture %}
+            <img src="{{ object.profile_picture.url }}" class="profile-picture" alt="profile_picture">
+        {% else %}
+            <img src="{% static 'images/client-default-profile-picture.jpg' %}" alt="default_profile_picture" class="profile-picture">
+        {% endif %}
+        <ul>
+            <li><b>Email:</b> {{ object.user.email }}</li>
+            <li><b>Phone:</b> {{ object.phone }}</li>
+            <li><b>First Name:</b> {{ object.first_name }}</li>
+            <li><b>Last Name:</b> {{ object.last_name }}</li>
+            <li><b>City:</b> {{ object.city }}</li>
+        </ul>
+        <button><a href="{% url 'edit-client' %}" class="link-button">Edit Profile</a></button>
+        <button><a href="{% url 'delete-account' %}" class="link-button">Delete Profile</a></button>
+        <button><a href="{% url 'change-password' %}" class="link-button">Change Password</a></button>
+        <button><a href="{% url 'reservation-list' pk=object.pk %}" class="link-button">Manage Reservations</a></button>
+        <button><a href="{% url 'client-reviews-list' pk=object.pk %}" class="link-button">My Reviews</a></button>
+    </div>
+        <img src="{% static 'images/website_photos/white-wall.jpg' %}" alt="white-wall" class="white-wall-picture">
+    </div>
+{% endblock %}

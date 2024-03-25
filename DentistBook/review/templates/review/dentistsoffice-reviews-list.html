@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    DentistHub Reviews for {{ dentistsoffice.name }}
+{% endblock %}
+
+{% block content %}
+    <div class="wall-picture-container">
+        <div class="main-review-container">
+            <div class="reviews-header">
+                <h1>Reviews for {{ dentistsoffice.name }}</h1>
+                <a href="{% url 'dentistsoffice-details' slug=dentistsoffice.slug %}" class="link-button">Back to Office Profile</a>
+                <a href="{% url 'create-review' slug=dentistsoffice.slug %}" class="link-button">Review Office</a>
+            </div>
+
+        <div class="list-container">
+            {% if reviews %}
+                    {% for review in reviews %}
+                            <div class="review-container">
+                                <div>
+                                    <p><b>Office:</b> {{ review.dentistsoffice }}</p>
+                                    <p><b>Rating:</b>
+                                    {% if review.rating == 1 %}
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                    {% elif review.rating == 2 %}
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                    {% elif review.rating == 3 %}
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                    {% elif review.rating == 4 %}
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                    {% elif review.rating == 5 %}
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    {% endif %}
+                                    ({{ review.rating }})
+                                    </p>
+                                    <p class="date-ago">{{ review.date_created|timesince }} ago</p>
+
+                                </div>
+                                <p class="review-comment">" {{ review.comment }} "</p>
+                                <div>
+                                    <p><b>By:</b> {{ review.user }}</p>
+                                    <p><b>Posted on:</b> {{ review.date_created }}</p>
+                                </div>
+                            </div>
+                        {% endfor %}
+            </div>
+
+                    <div class="pagination">
+                        <span class="step-links">
+                            {% if page_obj.has_previous %}
+                                <a href="?page=1">&laquo; first</a>
+                                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                            {% endif %}
+
+                            <span class="current">
+                                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                            </span>
+
+                            {% if page_obj.has_next %}
+                                <a href="?page={{ page_obj.next_page_number }}">next</a>
+                                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                            {% endif %}
+                        </span>
+                    </div>
+
+            {% else %}
+                <p>No reviews yet for {{ dentistsoffice.name }}.</p>
+            {% endif %}
+
+        </div>
+
+        <img src="{% static 'images/website_photos/white-wall.jpg' %}" alt="white-wall" class="white-wall-picture">
+    </div>
+
+{% endblock %}

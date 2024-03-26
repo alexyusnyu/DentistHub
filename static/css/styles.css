@@ -148,6 +148,9 @@ header a {
     text-align: center;
 }
 
+.leaflet-popup-content b {
+    color: black;
+}
 .date-ago {
     font-size: 0.8rem;
 }

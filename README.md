@@ -30,29 +30,29 @@ The app caters to two main user types: **Client** and **Dentist**.
 
 ## Screenshots:
 
-### Screenshot 0
+### 
 ![screenshot0.png](screenshots/screenshot0.png)
 
-### Screenshot 1
+### 
 ![screenshot1.png](screenshots/screenshot1.png)
 
-### Screenshot 2
+### 
 ![screenshot2.png](screenshots/screenshot2.png)
 
-### Screenshot 3
+### 
 ![screenshot3.png](screenshots/screenshot3.png)
 
-### Screenshot 4
+###
 ![screenshot4.png](screenshots/screenshot4.png)
 
-### Screenshot 5
+### 
 ![screenshot5.png](screenshots/screenshot5.png)
 
-### Screenshot 6
+### 
 ![screenshot6.png](screenshots/screenshot6.png)
 
-### Screenshot 7
+### 
 ![screenshot7.png](screenshots/screenshot7.png)
 
-### Screenshot 8
+### 
 ![screenshot8.png](screenshots/screenshot8.png)

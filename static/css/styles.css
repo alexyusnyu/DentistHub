@@ -64,7 +64,7 @@ main {
     min-height: 95vh;
 }
 main h1 {
-    font-family: Rye, sans-serif;
+    font-family: Impact, fantasy;
     font-size: 3rem;
 }
 
@@ -96,7 +96,7 @@ header a {
     flex-direction: row;
     align-items: center;
     font-size: 2rem;
-    font-family: Rye, sans-serif;
+    font-family: Impact, fantasy;
     font-weight: 500;
 }
 .home-logo img {

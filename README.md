@@ -12,6 +12,59 @@ The app caters to two main user types: **Client** and **Dentist**.
 - The reservation process involves six steps where clients select the dentist office, dentist, service, date, and time based on availability before confirming the reservation.
 - The application features a responsive design optimized for mobile devices.
 
+## Getting Started
+
+Follow these steps to set up the DentistHub Django project on your local machine:
+
+### Prerequisites
+
+- Python 3 installed on your system
+- Git installed on your system
+
+### Installation
+
+1. Clone the DentistHub repository to your local machine using Git:
+
+    ```bash
+    git clone https://github.com/sh4dowpunk/DentistHub.git
+    ```
+
+2. Navigate to the project directory:
+
+    ```bash
+    cd DentistHub
+    ```
+
+3. Create a virtual environment for the project (recommended):
+
+    ```bash
+    python3 -m venv venv
+    ```
+
+4. Activate the virtual environment:
+   
+   On Windows:
+    ```bash
+    venv\Scripts\activate
+    ```
+   
+   On macOS and Linux:
+    ```bash
+    source venv/bin/activate
+    ```
+
+5. Install the project dependencies:
+
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+### Running the Development Server
+
+Once you've installed the dependencies, you can run the Django development server:
+
+```bash
+python manage.py runserver
 
 ## Technologies Used:
 

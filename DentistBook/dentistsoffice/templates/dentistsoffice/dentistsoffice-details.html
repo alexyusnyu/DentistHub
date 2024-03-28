@@ -21,10 +21,10 @@ DentistHub Office Details Page
             <h1>Office Details</h1>
 
             {% if object.pk == request.user.pk %}
-                <button class="book-now-button"><a href="{% url 'step1-select-dentistsoffice' slug=object.slug %}">BOOK NOW</a></button>
+                <button class="book-now-button"><a href="{% url 'step1-select-dentistsoffice' slug=object.slug %}">Мake an appointment</a></button>
             {% endif %}
             {% if request.user.is_authenticated and request.user|get_role == 'Client' %}
-                <button class="book-now-button"><a href="{% url 'step1-select-dentistsoffice' slug=object.slug %}">BOOK NOW</a></button>
+                <button class="book-now-button"><a href="{% url 'step1-select-dentistsoffice' slug=object.slug %}">Мake an appointment</a></button>
                 <h2><a href="{% url 'create-review' slug=object.slug %}">Review dentistsoffice</a></h2>
             {% endif %}
 

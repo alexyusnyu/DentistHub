@@ -155,7 +155,7 @@ header a {
 .link-button {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #0066ff;
+    background-color: hsl(213, 93%, 70%);
     color: white;
     text-align: center;
     text-decoration: none;
@@ -165,7 +165,7 @@ header a {
 }
 
 .link-button:hover {
-    background-color: #0055ff;
+    background-color: #6bc4ff;
 }
 
 
@@ -236,7 +236,7 @@ button {
     margin: 8px;
     padding: 4px 4px;
     border-radius: 8px;
-    border: none;
+    border: 0px solid #FFFFFF;
     cursor: pointer;
     transition: transform 0.3s, color 0.3s, box-shadow 0.3s;
   
@@ -541,14 +541,15 @@ input::file-selector-button {
 }
 
 .book-now-button {
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    font-weight: 500;
-    font-size: 2rem;
-    background: #cc3c3b;
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: hsl(0, 0%, 0%);
     color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
-    transition: transform 0.3s, box-shadow 0.3s;
+    text-align: center;
+    text-decoration: none;
+    border: 2px solid #FFFFFF;
+    border-radius: 20px;
+    cursor: pointer;
 }
 
 .book-now-button:hover {

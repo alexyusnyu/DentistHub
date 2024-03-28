@@ -65,6 +65,7 @@ Once you've installed the dependencies, you can run the Django development serve
 
 ```bash
 python manage.py runserver
+```
 
 ## Technologies Used:
 
@@ -98,8 +99,6 @@ python manage.py runserver
 ###
 ![screenshot4.png](screenshots/screenshot4.png)
 
-### 
-![screenshot5.png](screenshots/screenshot5.png)
 
 ### 
 ![screenshot6.png](screenshots/screenshot6.png)

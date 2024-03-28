@@ -151,6 +151,24 @@ header a {
 .leaflet-popup-content b {
     color: black;
 }
+
+.link-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #0066ff;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    border: 2px solid #FFFFFF;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.link-button:hover {
+    background-color: #0055ff;
+}
+
+
 .date-ago {
     font-size: 0.8rem;
 }

@@ -234,12 +234,12 @@ button {
     background: black;
     color: white;
     margin: 8px;
-    padding: 4px 16px;
+    padding: 4px 4px;
     border-radius: 8px;
     border: none;
     cursor: pointer;
     transition: transform 0.3s, color 0.3s, box-shadow 0.3s;
-    box-shadow: 0 0 0 2px white; /* White bubble border */
+  
 }
 
 button:hover {

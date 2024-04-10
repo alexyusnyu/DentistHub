@@ -2,7 +2,9 @@
 
 **DentistHub** is a web application developed with Django. It serves as a platform for clients to book appointments with dentists conveniently, while also allowing dentists to manage their appointments effectively.
 
-##Demo
+## Demo
+
+This project is deployed using [Railway](https://railway.app/).
 
 <p align="center">
   <a href="https://dentisthub.up.railway.app/">

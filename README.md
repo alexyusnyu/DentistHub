@@ -2,6 +2,9 @@
 
 **DentistHub** is a web application developed with Django. It serves as a platform for clients to book appointments with dentists conveniently, while also allowing dentists to manage their appointments effectively.
 
+[![Visit DentistHub](https://img.shields.io/badge/Visit-DentistHub-blue.svg)](https://dentisthub.up.railway.app/)
+
+
 ## Short Functionality Description:
 
 The app caters to two main user types: **Client** and **Dentist**.
